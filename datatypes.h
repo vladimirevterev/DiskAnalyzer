@@ -9,13 +9,15 @@ struct GroupInfo {
     int averageSize;
 
     GroupInfo();
+    void add(int fileSize);
 };
 
-struct AnalizeResult {
+struct AnalysisResult {
     int foldersCount;
-    QMap<QString, GroupInfo> fileGroups;
+    QMap<QString, GroupInfo> groups;
 
-    AnalizeResult();
+    AnalysisResult();
+    void dump();
 };
 
 #endif // DATATYPES_H

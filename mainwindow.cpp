@@ -22,12 +22,12 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->dirTree->header()->hide();
 
     logger = new Logger(this, ui->loggingBrowser);
-    analizer = new Analizer();
-    analizer->moveToThread(analizer);
 
-    connect(ui->analizeButton, SIGNAL(clicked(QModelIndex)), this, SLOT(on_analizeButton_clicked(QModelIndex)));
-    connect(this, SIGNAL(destroyed()), analizer, SLOT(quit()));
-    connect(analizer, SIGNAL(finished()), this, SLOT(enableAnalize()));
+    analyzer = new Analyzer();
+    analyzer->moveToThread(analyzer);
+
+    connect(this, SIGNAL(destroyed()), analyzer, SLOT(quit()));
+    connect(analyzer, SIGNAL(finished()), this, SLOT(enableAnalyzeButton()));
 
     logger->print("Started");
 }
@@ -37,23 +37,23 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::enableAnalize()
+void MainWindow::enableAnalyzeButton()
 {
-    ui->analizeButton->setEnabled(true);
-}
-
-void MainWindow::on_analizeButton_clicked()
-{
-    ui->analizeButton->setEnabled(false);
-    analizer->folderPath = ui->analizedPath->toPlainText();
-    analizer->start();
+    ui->analyzeButton->setEnabled(true);
 }
 
 void MainWindow::on_dirTree_clicked(const QModelIndex &index)
 {
     QFileInfo fileInfo = dirModel->fileInfo(index);
     if (fileInfo.isDir()) {
-        ui->analizedPath->setText(fileInfo.absoluteFilePath());
+        ui->analysisPath->setText(fileInfo.absoluteFilePath());
     }
     logger->print(fileInfo.absoluteFilePath());
+}
+
+void MainWindow::on_analyzeButton_clicked()
+{
+    ui->analyzeButton->setEnabled(false);
+    analyzer->folderPath = ui->analysisPath->toPlainText();
+    analyzer->start();
 }

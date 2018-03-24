@@ -6,7 +6,7 @@ int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
     MainWindow w;
-    w.setWindowTitle("Disk Analizer");
+    w.setWindowTitle("Disk Analyzer");
     w.setWindowIcon(QIcon(":/icon.png"));
     w.show();
 

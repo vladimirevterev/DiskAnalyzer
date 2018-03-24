@@ -6,7 +6,7 @@
 #include <QFileSystemModel>
 
 #include "logger.h"
-#include "analizer.h"
+#include "analyzer.h"
 
 namespace Ui {
 class MainWindow;
@@ -21,18 +21,18 @@ public:
     ~MainWindow();
 
 public slots:
-    void enableAnalize();
+    void enableAnalyzeButton();
 private slots:
 
-    void on_analizeButton_clicked();
-
     void on_dirTree_clicked(const QModelIndex &index);
+
+    void on_analyzeButton_clicked();
 
 private:
     Ui::MainWindow *ui;
     QFileSystemModel *dirModel;
     Logger *logger;
-    Analizer *analizer;
+    Analyzer *analyzer;
 };
 
 #endif // MAINWINDOW_H
