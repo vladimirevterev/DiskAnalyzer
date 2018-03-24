@@ -8,7 +8,7 @@ GroupInfo::GroupInfo() {
     averageSize = 0;
 }
 
-void GroupInfo::add(int fileSize)
+void GroupInfo::addFile(int fileSize)
 {
     filesCount++;
     totalSize += fileSize;

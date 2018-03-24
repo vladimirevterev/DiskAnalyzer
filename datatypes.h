@@ -9,7 +9,7 @@ struct GroupInfo {
     int averageSize;
 
     GroupInfo();
-    void add(int fileSize);
+    void addFile(int fileSize);
 };
 
 struct AnalysisResult {

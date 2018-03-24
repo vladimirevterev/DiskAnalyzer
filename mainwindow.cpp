@@ -22,9 +22,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->dirTree->header()->hide();
 
     logger = new Logger(this, ui->loggingBrowser);
-
-    analyzer = new Analyzer();
-    analyzer->moveToThread(analyzer);
+    analyzer = new Analyzer(this);
 
     connect(this, SIGNAL(destroyed()), analyzer, SLOT(quit()));
     connect(analyzer, SIGNAL(finished()), this, SLOT(enableAnalyzeButton()));
@@ -34,11 +32,14 @@ MainWindow::MainWindow(QWidget *parent) :
 
 MainWindow::~MainWindow()
 {
+    analyzer->requestInterruption();
+    analyzer->wait(2000); // wait 2 seconds
     delete ui;
 }
 
 void MainWindow::enableAnalyzeButton()
 {
+    ui->analyzeButton->setText("Analyze");
     ui->analyzeButton->setEnabled(true);
 }
 
@@ -53,7 +54,13 @@ void MainWindow::on_dirTree_clicked(const QModelIndex &index)
 
 void MainWindow::on_analyzeButton_clicked()
 {
-    ui->analyzeButton->setEnabled(false);
-    analyzer->folderPath = ui->analysisPath->toPlainText();
-    analyzer->start();
+    if (analyzer->isRunning()) {
+        analyzer->requestInterruption();
+        ui->analyzeButton->setEnabled(false);
+    }
+    else {
+        analyzer->folderPath = ui->analysisPath->toPlainText();
+        analyzer->start();
+        ui->analyzeButton->setText("Cancel");
+    }
 }

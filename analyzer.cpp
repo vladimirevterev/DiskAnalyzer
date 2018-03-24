@@ -9,18 +9,36 @@
 Analyzer::Analyzer(QObject *parent): QThread(parent) {}
 
 void Analyzer::runAnalysis() {
-    QDirIterator folderIterator(folderPath, QDir::NoDotAndDotDot | QDir::Files, QDirIterator::Subdirectories);
-    AnalysisResult result;
+    QDir currentFolder(folderPath);
+    if (folderPath.isEmpty() || !currentFolder.exists()) {
+        qDebug() << "Specified folder does not exists.";
+        return;
+    }
 
-    while(folderIterator.hasNext()) {
-        folderIterator.next();
-        result.groups[folderIterator.fileInfo().completeSuffix()].add(folderIterator.fileInfo().size());
+    AnalysisResult result;
+    QDirIterator filesIterator(folderPath, QDir::NoDotAndDotDot | QDir::Files, QDirIterator::Subdirectories);
+    QDirIterator foldersIterator(folderPath, QDir::NoDotAndDotDot | QDir::Dirs); // without subdirectories
+    while (filesIterator.hasNext()) {
+        if (isInterruptionRequested()) {
+            qDebug() << "Interruption request occured. Stop analysis.";
+            return;
+        }
+        filesIterator.next();
+        result.groups[filesIterator.fileInfo().suffix()].addFile(filesIterator.fileInfo().size());
+    }
+    while (foldersIterator.hasNext()) {
+        if (isInterruptionRequested()) {
+            qDebug() << "Interruption request occured. Stop analysis.";
+            return;
+        }
+        foldersIterator.next();
+        result.foldersCount++;
     }
     result.dump();
 }
 
 void Analyzer::run() {
-    qDebug() << "thread " << this->currentThreadId() << "started";
+    qDebug() << "Thread " << this->currentThreadId() << "started.";
     runAnalysis();
-    qDebug() << "thread " << this->currentThreadId() << "finished";
+    qDebug() << "Thread " << this->currentThreadId() << "finished.";
 }
