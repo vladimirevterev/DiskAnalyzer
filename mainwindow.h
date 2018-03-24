@@ -4,8 +4,9 @@
 #include <QMainWindow>
 #include <QtWidgets>
 #include <QFileSystemModel>
-#include <QDir>
+
 #include "logger.h"
+#include "analizer.h"
 
 namespace Ui {
 class MainWindow;
@@ -19,15 +20,19 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
 
+public slots:
+    void enableAnalize();
 private slots:
 
-    void on_dirTree_clicked(const QModelIndex &index);
     void on_analizeButton_clicked();
+
+    void on_dirTree_clicked(const QModelIndex &index);
 
 private:
     Ui::MainWindow *ui;
     QFileSystemModel *dirModel;
     Logger *logger;
+    Analizer *analizer;
 };
 
 #endif // MAINWINDOW_H
