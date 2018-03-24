@@ -8,7 +8,7 @@ class Analizer : public QThread {
     Q_OBJECT
 
 public:
-    QString directory;
+    QString folderPath;
 
     Analizer(QObject *parent = nullptr);
     void runAnalize();

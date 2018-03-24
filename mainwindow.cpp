@@ -45,7 +45,7 @@ void MainWindow::enableAnalize()
 void MainWindow::on_analizeButton_clicked()
 {
     ui->analizeButton->setEnabled(false);
-    analizer->directory = ui->analizedPath->toPlainText();
+    analizer->folderPath = ui->analizedPath->toPlainText();
     analizer->start();
 }
 

@@ -28,12 +28,14 @@ SOURCES += \
         main.cpp \
         mainwindow.cpp \
     logger.cpp \
-    analizer.cpp
+    analizer.cpp \
+    datatypes.cpp
 
 HEADERS += \
         mainwindow.h \
     logger.h \
-    analizer.h
+    analizer.h \
+    datatypes.h
 
 FORMS += \
         mainwindow.ui

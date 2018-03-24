@@ -1,12 +1,14 @@
 #include "analizer.h"
+#include "datatypes.h"
+
 #include <QDebug>
+#include <QDir>
 
 
 Analizer::Analizer(QObject *parent): QThread(parent) {}
 
 void Analizer::runAnalize()
 {
-    qDebug() << "analize: " << directory;
     sleep(5);
     return;
 }
