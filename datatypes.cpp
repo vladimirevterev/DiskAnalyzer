@@ -1,6 +1,7 @@
 #include <datatypes.h>
 
 #include <QDebug>
+#include <QTextStream>
 
 GroupInfo::GroupInfo() {
     filesCount = 0;
@@ -19,12 +20,21 @@ AnalysisResult::AnalysisResult() {
     foldersCount = 0;
 }
 
-void AnalysisResult::dump()
+QString AnalysisResult::dump()
 {
-    qDebug() << "Folders count: " << foldersCount;
-    foreach (QString type, groups.keys()) {
-        qDebug() << type << ": " << groups.value(type).filesCount << "("
-                 << groups.value(type).totalSize << ", "
-                 << groups.value(type).averageSize << ")";
+    QString result;
+    QTextStream resultStream(&result);
+    resultStream << endl << "Analysis result:" << endl;
+    resultStream << "Folders count: " << foldersCount << endl;
+    resultStream <<"File group format: " << endl
+                 << "<type> (<total_group_size>, <average_file_size_in_group>):" << endl;
+    foreach (QString type, groups.keys())
+    {
+        resultStream << "\"" << type << "\": "
+                     << groups.value(type).filesCount << "("
+                     << groups.value(type).totalSize << ", "
+                     << groups.value(type).averageSize << ")"
+                     << endl;
     }
+    return result;
 }

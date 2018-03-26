@@ -7,18 +7,23 @@
 class Analyzer : public QThread {
     Q_OBJECT
 
+protected:
+    void run();
+
+private:
+    void setProgressText(const QString& text);
+
 public:
     QString folderPath;
-
-    Analyzer(QObject *parent = nullptr);
+    Analyzer(QObject *parent = 0);
     void runAnalysis();
+
 signals:
+    void analysisProgressText(const QString& text);
 
 public slots:
 
-    // QThread interface
-protected:
-    void run();
+
 };
 
 #endif // ANAYZER_H

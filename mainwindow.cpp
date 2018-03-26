@@ -13,7 +13,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
 
     dirModel = new QFileSystemModel(this);
-    dirModel->setFilter(QDir::Dirs | QDir::NoDotAndDotDot);
+    dirModel->setFilter(QDir::Dirs | QDir::NoDotAndDotDot | QDir::Hidden);
     dirModel->setRootPath(QDir::rootPath());
     ui->dirTree->setModel(dirModel);
     for (int i = 1; i < dirModel->columnCount(); ++i) {
@@ -22,12 +22,14 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->dirTree->header()->hide();
 
     logger = new Logger(this, ui->loggingBrowser);
-    analyzer = new Analyzer(this);
+    analyzer = new Analyzer();
+    analyzer->moveToThread(analyzer);
 
-    connect(this, SIGNAL(destroyed()), analyzer, SLOT(quit()));
-    connect(analyzer, SIGNAL(finished()), this, SLOT(enableAnalyzeButton()));
+    connect(this, &MainWindow::destroyed, analyzer, &Analyzer::quit);
+    connect(analyzer, &Analyzer::finished, this, &MainWindow::enableAnalyzeButton);
+    connect(analyzer, &Analyzer::analysisProgressText, logger, &Logger::print);
 
-    logger->print("Started");
+    logger->print("Started. Main thread: " + QString::number((long long)this->thread(), 16));
 }
 
 MainWindow::~MainWindow()
@@ -49,7 +51,6 @@ void MainWindow::on_dirTree_clicked(const QModelIndex &index)
     if (fileInfo.isDir()) {
         ui->analysisPath->setText(fileInfo.absoluteFilePath());
     }
-    logger->print(fileInfo.absoluteFilePath());
 }
 
 void MainWindow::on_analyzeButton_clicked()

@@ -17,7 +17,7 @@ struct AnalysisResult {
     QMap<QString, GroupInfo> groups;
 
     AnalysisResult();
-    void dump();
+    QString dump();
 };
 
 #endif // DATATYPES_H

@@ -11,13 +11,13 @@ class Logger : public QObject
 private:
     QTextBrowser *textBrowser;
 public:
-    Logger(QObject *parent = nullptr);
-    Logger(QObject *parent = nullptr, QTextBrowser *textBrowser = nullptr);
+    Logger(QObject *parent = 0);
+    Logger(QObject *parent = 0, QTextBrowser *textBrowser = 0);
 
-    void print(const QString& text);
 signals:
 
 public slots:
+    void print(const QString& text);
 };
 
 #endif // LOGGER_H

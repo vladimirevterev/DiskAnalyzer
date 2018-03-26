@@ -22,10 +22,9 @@ public:
 
 public slots:
     void enableAnalyzeButton();
+
 private slots:
-
     void on_dirTree_clicked(const QModelIndex &index);
-
     void on_analyzeButton_clicked();
 
 private:
