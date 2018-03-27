@@ -4,6 +4,8 @@
 #include <QObject>
 #include <QThread>
 
+#include "datatypes.h"
+
 class Analyzer : public QThread {
     Q_OBJECT
 
@@ -19,7 +21,8 @@ public:
     void runAnalysis();
 
 signals:
-    void analysisProgressText(const QString& text);
+    void analysisProgressTextSent(const QString& text);
+    void analysisDone(const AnalysisResult& result);
 
 public slots:
 

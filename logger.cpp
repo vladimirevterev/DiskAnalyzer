@@ -1,8 +1,12 @@
 #include "logger.h"
 
-Logger::Logger(QObject *parent) : QObject(parent) {}
+Logger::Logger(QObject *parent) : QObject(parent)
+{
 
-Logger::Logger(QObject *parent, QTextBrowser *textBrowser) : QObject(parent) {
+}
+
+Logger::Logger(QObject *parent, QTextBrowser *textBrowser) : QObject(parent)
+{
     this->textBrowser = textBrowser;
 }
 

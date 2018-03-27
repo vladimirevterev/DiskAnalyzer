@@ -1,5 +1,4 @@
 #include "analyzer.h"
-#include "datatypes.h"
 
 #include <QDebug>
 #include <QDir>
@@ -39,6 +38,8 @@ void Analyzer::runAnalysis() {
         result.foldersCount++;
     }
     setProgressText(result.dump());
+    // Send data to model
+    emit analysisDone(result);
 }
 
 void Analyzer::run() {
@@ -48,5 +49,5 @@ void Analyzer::run() {
 }
 
 void Analyzer::setProgressText(const QString& text) {
-    emit analysisProgressText(text);
+    emit analysisProgressTextSent(text);
 }

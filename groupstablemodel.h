@@ -16,11 +16,12 @@ public:
     QVariant data(const QModelIndex &index, int role) const;
     QVariant headerData(int section, Qt::Orientation orientation, int role) const;
 
-    QVector<QVector<QVariant> > groupsVector;
+    GroupsVector groupsVector;
 
 signals:
 
 public slots:
+    void update(const GroupsVector& newGroupsVector);
 
 };
 

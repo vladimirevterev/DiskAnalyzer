@@ -31,7 +31,7 @@ QString AnalysisResult::dump()
                  << "<type> (<total_group_size>, <average_file_size_in_group>):" << endl;
     foreach (QString type, groups.keys())
     {
-        resultStream << "\"" << type << "\": "
+        resultStream << "\"" << (type.isEmpty() ? "<empty_type>" : type) << "\": "
                      << groups.value(type).filesCount << "("
                      << groups.value(type).totalSize << ", "
                      << groups.value(type).averageSize << ")"
@@ -40,17 +40,18 @@ QString AnalysisResult::dump()
     return result;
 }
 
-QVector<QVector<QVariant> > AnalysisResult::getGroupsAsVector()
+GroupsVector AnalysisResult::getGroupsAsVector() const
 {
-    QVector<QVector<QVariant> > result;
+    GroupsVector result;
     result.resize(groups.size());
     int i = 0;
     foreach (QString type, groups.keys())
     {
-        result[i].push_back(QVariant(type));
+        result[i].push_back(QVariant(type.isEmpty() ? "<empty_type>" : type));
         result[i].push_back(QVariant(groups.value(type).filesCount));
         result[i].push_back(QVariant(groups.value(type).totalSize));
         result[i].push_back(QVariant(groups.value(type).averageSize));
+        ++i;
     }
     return result;
 }

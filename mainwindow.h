@@ -23,6 +23,7 @@ public:
 
 public slots:
     void enableAnalyzeButton();
+    void updateAnalysisData(const AnalysisResult& result);
 
 private slots:
     void on_dirTree_clicked(const QModelIndex &index);

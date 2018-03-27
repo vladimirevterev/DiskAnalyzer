@@ -52,13 +52,20 @@ QVariant GroupsTableModel::headerData(int section, Qt::Orientation orientation, 
         case 1:
             return QVariant("Count");
         case 2:
-            return QVariant("Total size");
+            return QVariant("Total Size (bytes)");
         case 3:
-            return QVariant("Average Size");
+            return QVariant("Average File Size (bytes)");
         default:
             return QVariant();
         }
     }
     return QVariant();
+}
+
+void GroupsTableModel::update(const GroupsVector& newGroupsVector)
+{
+    beginResetModel();
+    groupsVector = newGroupsVector;
+    endResetModel();
 }
 

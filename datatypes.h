@@ -5,6 +5,8 @@
 #include <QVector>
 #include <QVariant>
 
+typedef QVector<QVector<QVariant> > GroupsVector;
+
 struct GroupInfo {
     int filesCount;
     int totalSize;
@@ -20,7 +22,9 @@ struct AnalysisResult {
 
     AnalysisResult();
     QString dump();
-    QVector<QVector<QVariant> > getGroupsAsVector();
+    GroupsVector getGroupsAsVector() const;
 };
+
+Q_DECLARE_METATYPE(AnalysisResult);
 
 #endif // DATATYPES_H
