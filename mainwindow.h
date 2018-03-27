@@ -7,6 +7,7 @@
 
 #include "logger.h"
 #include "analyzer.h"
+#include "groupstablemodel.h"
 
 namespace Ui {
 class MainWindow;
@@ -29,7 +30,8 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
-    QFileSystemModel *dirModel;
+    QFileSystemModel *fileSystemModel;
+    GroupsTableModel *groupsTableModel;
     Logger *logger;
     Analyzer *analyzer;
 };

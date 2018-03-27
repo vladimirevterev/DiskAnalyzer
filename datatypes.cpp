@@ -16,7 +16,8 @@ void GroupInfo::addFile(int fileSize)
     averageSize = totalSize / filesCount;
 }
 
-AnalysisResult::AnalysisResult() {
+AnalysisResult::AnalysisResult()
+{
     foldersCount = 0;
 }
 
@@ -35,6 +36,21 @@ QString AnalysisResult::dump()
                      << groups.value(type).totalSize << ", "
                      << groups.value(type).averageSize << ")"
                      << endl;
+    }
+    return result;
+}
+
+QVector<QVector<QVariant> > AnalysisResult::getGroupsAsVector()
+{
+    QVector<QVector<QVariant> > result;
+    result.resize(groups.size());
+    int i = 0;
+    foreach (QString type, groups.keys())
+    {
+        result[i].push_back(QVariant(type));
+        result[i].push_back(QVariant(groups.value(type).filesCount));
+        result[i].push_back(QVariant(groups.value(type).totalSize));
+        result[i].push_back(QVariant(groups.value(type).averageSize));
     }
     return result;
 }

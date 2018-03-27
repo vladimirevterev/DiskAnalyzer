@@ -29,13 +29,15 @@ SOURCES += \
         mainwindow.cpp \
     logger.cpp \
     datatypes.cpp \
-    analyzer.cpp
+    analyzer.cpp \
+    groupstablemodel.cpp
 
 HEADERS += \
         mainwindow.h \
     logger.h \
     datatypes.h \
-    analyzer.h
+    analyzer.h \
+    groupstablemodel.h
 
 FORMS += \
         mainwindow.ui

@@ -2,6 +2,8 @@
 #define DATATYPES_H
 
 #include <QMap>
+#include <QVector>
+#include <QVariant>
 
 struct GroupInfo {
     int filesCount;
@@ -18,6 +20,7 @@ struct AnalysisResult {
 
     AnalysisResult();
     QString dump();
+    QVector<QVector<QVariant> > getGroupsAsVector();
 };
 
 #endif // DATATYPES_H

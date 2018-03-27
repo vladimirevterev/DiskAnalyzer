@@ -171,7 +171,7 @@
           <number>1</number>
          </property>
          <item>
-          <widget class="QTableView" name="tableView">
+          <widget class="QTableView" name="groupsView">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
              <horstretch>0</horstretch>
@@ -181,6 +181,18 @@
            <property name="sizeAdjustPolicy">
             <enum>QAbstractScrollArea::AdjustToContentsOnFirstShow</enum>
            </property>
+           <property name="sortingEnabled">
+            <bool>true</bool>
+           </property>
+           <attribute name="horizontalHeaderCascadingSectionResizes">
+            <bool>false</bool>
+           </attribute>
+           <attribute name="horizontalHeaderShowSortIndicator" stdset="0">
+            <bool>true</bool>
+           </attribute>
+           <attribute name="horizontalHeaderStretchLastSection">
+            <bool>false</bool>
+           </attribute>
           </widget>
          </item>
         </layout>
@@ -249,7 +261,7 @@
      <x>0</x>
      <y>0</y>
      <width>985</width>
-     <height>26</height>
+     <height>25</height>
     </rect>
    </property>
   </widget>
