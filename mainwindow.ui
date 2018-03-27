@@ -182,13 +182,13 @@
             <enum>QAbstractScrollArea::AdjustToContentsOnFirstShow</enum>
            </property>
            <property name="sortingEnabled">
-            <bool>true</bool>
+            <bool>false</bool>
            </property>
            <attribute name="horizontalHeaderCascadingSectionResizes">
             <bool>false</bool>
            </attribute>
            <attribute name="horizontalHeaderShowSortIndicator" stdset="0">
-            <bool>true</bool>
+            <bool>false</bool>
            </attribute>
            <attribute name="horizontalHeaderStretchLastSection">
             <bool>false</bool>
