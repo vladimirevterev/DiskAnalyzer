@@ -108,7 +108,7 @@
        <property name="orientation">
         <enum>Qt::Vertical</enum>
        </property>
-       <widget class="QWidget" name="">
+       <widget class="QWidget" name="layoutWidget">
         <layout class="QVBoxLayout" name="verticalLayout">
          <item>
           <layout class="QHBoxLayout" name="horizontalLayout_3">
@@ -149,11 +149,29 @@
                <verstretch>0</verstretch>
               </sizepolicy>
              </property>
+             <property name="minimumSize">
+              <size>
+               <width>120</width>
+               <height>27</height>
+              </size>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>120</width>
+               <height>27</height>
+              </size>
+             </property>
              <property name="maximum">
               <number>0</number>
              </property>
              <property name="value">
               <number>0</number>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignCenter</set>
+             </property>
+             <property name="textVisible">
+              <bool>true</bool>
              </property>
              <property name="invertedAppearance">
               <bool>false</bool>
@@ -295,13 +313,6 @@
      </layout>
     </item>
    </layout>
-   <zorder>layoutWidget</zorder>
-   <zorder>splitter</zorder>
-   <zorder>checkBox</zorder>
-   <zorder>horizontalSpacer_2</zorder>
-   <zorder>horizontalSpacer_3</zorder>
-   <zorder>checkBox</zorder>
-   <zorder>verticalLayoutWidget</zorder>
   </widget>
  </widget>
  <layoutdefault spacing="6" margin="11"/>

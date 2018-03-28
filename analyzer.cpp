@@ -38,7 +38,7 @@ void Analyzer::runAnalysis() {
         result.foldersCount++;
     }
     setProgressText(result.dump());
-    // Send data to model
+    // Send analysis data to main form
     emit analysisDone(result);
 }
 
