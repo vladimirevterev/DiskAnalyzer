@@ -22,8 +22,8 @@ public:
     ~MainWindow();
 
 public slots:
-    void enableAnalyzeButton();
-    void updateAnalysisData(const AnalysisResult& result);
+    void onAnalysisThreadFinished();
+    void onAnalysisDone(const AnalysisResult& result);
 
 private slots:
     void on_dirTree_clicked(const QModelIndex &index);

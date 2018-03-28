@@ -11,6 +11,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    ui->progressBar->setHidden(true);
 
     fileSystemModel = new QFileSystemModel(this);
     fileSystemModel->setFilter(QDir::Dirs | QDir::NoDotAndDotDot | QDir::Hidden);
@@ -20,6 +21,8 @@ MainWindow::MainWindow(QWidget *parent) :
         ui->dirTree->hideColumn(i);
     }
     ui->dirTree->header()->hide();
+    ui->dirTree->header()->setSectionResizeMode(0, QHeaderView::ResizeToContents);
+    ui->dirTree->header()->setStretchLastSection(false);
 
     groupsTableModel = new GroupsTableModel(this);
     ui->groupsView->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
@@ -31,9 +34,9 @@ MainWindow::MainWindow(QWidget *parent) :
     analyzer->moveToThread(analyzer);
 
     connect(this, &MainWindow::destroyed, analyzer, &Analyzer::quit);
-    connect(analyzer, &Analyzer::finished, this, &MainWindow::enableAnalyzeButton);
+    connect(analyzer, &Analyzer::finished, this, &MainWindow::onAnalysisThreadFinished);
     connect(analyzer, &Analyzer::analysisProgressTextSent, logger, &Logger::print);
-    connect(analyzer, &Analyzer::analysisDone, this, &MainWindow::updateAnalysisData);
+    connect(analyzer, &Analyzer::analysisDone, this, &MainWindow::onAnalysisDone);
 
     logger->print("Started. Main thread: " + QString::number((long long)this->thread(), 16));
 }
@@ -45,16 +48,17 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::enableAnalyzeButton()
+void MainWindow::onAnalysisThreadFinished()
 {
     ui->analyzeButton->setText("Analyze");
     ui->analyzeButton->setEnabled(true);
+    ui->progressBar->setHidden(true);
 }
 
-void MainWindow::updateAnalysisData(const AnalysisResult &result)
+void MainWindow::onAnalysisDone(const AnalysisResult &result)
 {
     groupsTableModel->update(result.getGroupsAsVector());
-    // TODO: update folders!
+    ui->foldersCountText->setText(QString::number(result.foldersCount));
 }
 
 void MainWindow::on_dirTree_clicked(const QModelIndex &index)
@@ -75,5 +79,6 @@ void MainWindow::on_analyzeButton_clicked()
         analyzer->folderPath = ui->analysisPath->toPlainText();
         analyzer->start();
         ui->analyzeButton->setText("Cancel");
+        ui->progressBar->setHidden(false);
     }
 }
