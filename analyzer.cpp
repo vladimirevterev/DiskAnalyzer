@@ -19,6 +19,7 @@ void Analyzer::runAnalysis() {
     AnalysisResult result;
     QDirIterator filesIterator(folderPath, QDir::NoDotAndDotDot | QDir::Files, QDirIterator::Subdirectories);
     QDirIterator foldersIterator(folderPath, QDir::NoDotAndDotDot | QDir::Dirs); // without subdirectories
+
     while (filesIterator.hasNext()) {
         if (isInterruptionRequested())
         {
@@ -27,6 +28,7 @@ void Analyzer::runAnalysis() {
         }
         filesIterator.next();
         result.groups[filesIterator.fileInfo().suffix()].addFile(filesIterator.fileInfo().size());
+        result.totalFilesCount++;
     }
     while (foldersIterator.hasNext()) {
         if (isInterruptionRequested())

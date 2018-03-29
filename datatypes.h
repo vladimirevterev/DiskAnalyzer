@@ -6,6 +6,7 @@
 #include <QVariant>
 
 typedef QVector<QVector<QVariant> > GroupsVector;
+#define GROUPS_VECTOR_LENGTH 4
 
 struct GroupInfo {
     int filesCount;
@@ -18,6 +19,7 @@ struct GroupInfo {
 
 struct AnalysisResult {
     int foldersCount;
+    int totalFilesCount;
     QMap<QString, GroupInfo> groups;
 
     AnalysisResult();

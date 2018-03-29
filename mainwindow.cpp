@@ -44,7 +44,8 @@ MainWindow::MainWindow(QWidget *parent) :
 MainWindow::~MainWindow()
 {
     analyzer->requestInterruption();
-    analyzer->wait(2000); // wait 2 seconds
+    // waiting for 2 seconds before exit
+    analyzer->wait(2000);
     delete ui;
 }
 
@@ -59,6 +60,8 @@ void MainWindow::onAnalysisDone(const AnalysisResult &result)
 {
     groupsTableModel->update(result.getGroupsAsVector());
     ui->foldersCountText->setText(QString::number(result.foldersCount));
+    ui->filesCountText->setText(QString::number(result.totalFilesCount));
+    ui->groupsCountText->setText(QString::number(result.groups.size()));
 }
 
 void MainWindow::on_dirTree_clicked(const QModelIndex &index)

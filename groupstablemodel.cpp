@@ -1,5 +1,8 @@
 #include "groupstablemodel.h"
 
+#include <QBrush>
+#include <QColor>
+
 GroupsTableModel::GroupsTableModel(QObject *parent) : QAbstractTableModel(parent)
 {
 
@@ -14,8 +17,7 @@ int GroupsTableModel::rowCount(const QModelIndex &parent) const
 int GroupsTableModel::columnCount(const QModelIndex &parent) const
 {
     Q_UNUSED(parent);
-    // TODO: make more flexible
-    return 4;
+    return GROUPS_VECTOR_LENGTH;
 }
 
 QVariant GroupsTableModel::data(const QModelIndex &index, int role) const
@@ -34,6 +36,14 @@ QVariant GroupsTableModel::data(const QModelIndex &index, int role) const
     {
         return (QVariant(groupsVector[index.row()][index.column()]));
     }
+
+    if (role == Qt::BackgroundRole) {
+        if (!(index.row() & 1)) {
+            return QBrush(QBrush(QColor(230, 230, 230, 255)));
+        }
+        return QVariant(QBrush(QColor(Qt::white)));
+    }
+
     return QVariant();
 }
 

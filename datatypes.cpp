@@ -19,6 +19,7 @@ void GroupInfo::addFile(int fileSize)
 AnalysisResult::AnalysisResult()
 {
     foldersCount = 0;
+    totalFilesCount = 0;
 }
 
 QString AnalysisResult::dump()
@@ -27,6 +28,7 @@ QString AnalysisResult::dump()
     QTextStream resultStream(&result);
     resultStream << endl << "Analysis result:" << endl;
     resultStream << "Folders count: " << foldersCount << endl;
+    resultStream << "Total files count: " << totalFilesCount << endl;
     resultStream <<"File group format: " << endl
                  << "<type> (<total_group_size>, <average_file_size_in_group>):" << endl;
     foreach (QString type, groups.keys())

@@ -18,7 +18,7 @@
   </property>
   <property name="minimumSize">
    <size>
-    <width>640</width>
+    <width>800</width>
     <height>480</height>
    </size>
   </property>
@@ -115,7 +115,7 @@
            <item>
             <widget class="QLabel" name="label">
              <property name="text">
-              <string>Folders count</string>
+              <string>Folders Count</string>
              </property>
             </widget>
            </item>
@@ -142,7 +142,14 @@
             </widget>
            </item>
            <item>
-            <widget class="QProgressBar" name="progressBar">
+            <widget class="QLabel" name="label_2">
+             <property name="text">
+              <string>Total Files Count</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QTextBrowser" name="filesCountText">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
                <horstretch>0</horstretch>
@@ -161,20 +168,34 @@
                <height>27</height>
               </size>
              </property>
-             <property name="maximum">
-              <number>0</number>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="label_3">
+             <property name="text">
+              <string>Groups Count</string>
              </property>
-             <property name="value">
-              <number>0</number>
+            </widget>
+           </item>
+           <item>
+            <widget class="QTextBrowser" name="groupsCountText">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
              </property>
-             <property name="alignment">
-              <set>Qt::AlignCenter</set>
+             <property name="minimumSize">
+              <size>
+               <width>120</width>
+               <height>27</height>
+              </size>
              </property>
-             <property name="textVisible">
-              <bool>true</bool>
-             </property>
-             <property name="invertedAppearance">
-              <bool>false</bool>
+             <property name="maximumSize">
+              <size>
+               <width>120</width>
+               <height>27</height>
+              </size>
              </property>
             </widget>
            </item>
@@ -269,12 +290,6 @@
     </item>
     <item>
      <layout class="QHBoxLayout" name="horizontalLayout">
-      <property name="spacing">
-       <number>6</number>
-      </property>
-      <property name="sizeConstraint">
-       <enum>QLayout::SetDefaultConstraint</enum>
-      </property>
       <item>
        <widget class="QTextEdit" name="analysisPath">
         <property name="sizePolicy">
@@ -311,6 +326,79 @@
        </widget>
       </item>
      </layout>
+    </item>
+    <item>
+     <widget class="QWidget" name="widget" native="true">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="minimumSize">
+       <size>
+        <width>0</width>
+        <height>10</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>16777215</width>
+        <height>10</height>
+       </size>
+      </property>
+      <layout class="QHBoxLayout" name="horizontalLayout_2">
+       <property name="leftMargin">
+        <number>0</number>
+       </property>
+       <property name="topMargin">
+        <number>0</number>
+       </property>
+       <property name="rightMargin">
+        <number>0</number>
+       </property>
+       <property name="bottomMargin">
+        <number>0</number>
+       </property>
+       <item>
+        <widget class="QProgressBar" name="progressBar">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="minimumSize">
+          <size>
+           <width>120</width>
+           <height>10</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>120</width>
+           <height>10</height>
+          </size>
+         </property>
+         <property name="maximum">
+          <number>0</number>
+         </property>
+         <property name="value">
+          <number>0</number>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+         <property name="textVisible">
+          <bool>true</bool>
+         </property>
+         <property name="invertedAppearance">
+          <bool>false</bool>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
     </item>
    </layout>
   </widget>

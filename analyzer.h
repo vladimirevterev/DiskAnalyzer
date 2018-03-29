@@ -16,9 +16,10 @@ private:
     void setProgressText(const QString& text);
 
 public:
-    QString folderPath;
     Analyzer(QObject *parent = 0);
     void runAnalysis();
+
+    QString folderPath;
 
 signals:
     void analysisProgressTextSent(const QString& text);
