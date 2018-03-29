@@ -35,6 +35,8 @@ private:
     GroupsTableModel *groupsTableModel;
     Logger *logger;
     Analyzer *analyzer;
+
+    void decorateSplitter(QSplitter* splitter, int index);
 };
 
 #endif // MAINWINDOW_H

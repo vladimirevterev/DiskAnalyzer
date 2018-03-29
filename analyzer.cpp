@@ -9,8 +9,8 @@
 Analyzer::Analyzer(QObject *parent): QThread(parent) {}
 
 void Analyzer::runAnalysis() {
-    QDir currentFolder(folderPath);
-    if (folderPath.isEmpty() || !currentFolder.exists()) {
+    QDir analysisFolder(folderPath);
+    if (folderPath.isEmpty() || !analysisFolder.exists()) {
         setProgressText("Specified folder does not exists.");
         return;
     }
@@ -26,10 +26,13 @@ void Analyzer::runAnalysis() {
             setProgressText("Interruption request occured. Stop analysis.");
             return;
         }
+        QFileInfo currentFile = filesIterator.fileInfo();
         filesIterator.next();
-        result.groups[filesIterator.fileInfo().suffix()].addFile(filesIterator.fileInfo().size());
+        result.groups[currentFile.suffix()].addFile(currentFile.size());
         result.totalFilesCount++;
+        result.size += currentFile.size();
     }
+
     while (foldersIterator.hasNext()) {
         if (isInterruptionRequested())
         {
@@ -37,8 +40,9 @@ void Analyzer::runAnalysis() {
             return;
         }
         foldersIterator.next();
-        result.foldersCount++;
+        result.subfoldersCount++;
     }
+
     setProgressText(result.dump());
     // Send analysis data to main form
     emit analysisDone(result);

@@ -9,17 +9,18 @@ typedef QVector<QVector<QVariant> > GroupsVector;
 #define GROUPS_VECTOR_LENGTH 4
 
 struct GroupInfo {
-    int filesCount;
-    int totalSize;
-    int averageSize;
+    qint64 filesCount;
+    qint64 totalSize;
+    qint64 averageSize;
 
     GroupInfo();
-    void addFile(int fileSize);
+    void addFile(qint64 fileSize);
 };
 
 struct AnalysisResult {
-    int foldersCount;
-    int totalFilesCount;
+    qint64 subfoldersCount;
+    qint64 size;
+    qint64 totalFilesCount;
     QMap<QString, GroupInfo> groups;
 
     AnalysisResult();

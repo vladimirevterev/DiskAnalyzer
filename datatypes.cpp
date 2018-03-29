@@ -9,7 +9,7 @@ GroupInfo::GroupInfo() {
     averageSize = 0;
 }
 
-void GroupInfo::addFile(int fileSize)
+void GroupInfo::addFile(qint64 fileSize)
 {
     filesCount++;
     totalSize += fileSize;
@@ -18,7 +18,8 @@ void GroupInfo::addFile(int fileSize)
 
 AnalysisResult::AnalysisResult()
 {
-    foldersCount = 0;
+    size = 0;
+    subfoldersCount = 0;
     totalFilesCount = 0;
 }
 
@@ -27,7 +28,8 @@ QString AnalysisResult::dump()
     QString result;
     QTextStream resultStream(&result);
     resultStream << endl << "Analysis result:" << endl;
-    resultStream << "Folders count: " << foldersCount << endl;
+    resultStream << "Subfolders count: " << subfoldersCount << endl;
+    resultStream << "Folder size: " << size << endl;
     resultStream << "Total files count: " << totalFilesCount << endl;
     resultStream <<"File group format: " << endl
                  << "<type> (<total_group_size>, <average_file_size_in_group>):" << endl;
@@ -50,9 +52,9 @@ GroupsVector AnalysisResult::getGroupsAsVector() const
     foreach (QString type, groups.keys())
     {
         result[i].push_back(QVariant(type.isEmpty() ? "<empty_type>" : type));
-        result[i].push_back(QVariant(groups.value(type).filesCount));
-        result[i].push_back(QVariant(groups.value(type).totalSize));
-        result[i].push_back(QVariant(groups.value(type).averageSize));
+        result[i].push_back(QVariant(QString::number(groups.value(type).filesCount)));
+        result[i].push_back(QVariant(QString::number(groups.value(type).totalSize)));
+        result[i].push_back(QVariant(QString::number(groups.value(type).averageSize)));
         ++i;
     }
     return result;

@@ -11,6 +11,13 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+
+#ifdef Q_OS_WIN
+    // Decorate splitters for Windows
+    decorateSplitter(ui->dirTreeSplitter, 1);
+    decorateSplitter(ui->logBarSplitter, 1);
+#endif
+
     ui->progressBar->setHidden(true);
 
     fileSystemModel = new QFileSystemModel(this);
@@ -59,7 +66,8 @@ void MainWindow::onAnalysisThreadFinished()
 void MainWindow::onAnalysisDone(const AnalysisResult &result)
 {
     groupsTableModel->update(result.getGroupsAsVector());
-    ui->foldersCountText->setText(QString::number(result.foldersCount));
+    ui->foldersCountText->setText(QString::number(result.subfoldersCount));
+    ui->folderSize->setText(QString::number(result.size));
     ui->filesCountText->setText(QString::number(result.totalFilesCount));
     ui->groupsCountText->setText(QString::number(result.groups.size()));
 }
@@ -83,5 +91,49 @@ void MainWindow::on_analyzeButton_clicked()
         analyzer->start();
         ui->analyzeButton->setText("Cancel");
         ui->progressBar->setHidden(false);
+    }
+}
+
+void MainWindow::decorateSplitter(QSplitter *splitter, int index)
+{
+    const int gripLength = 15;
+    const int gripWidth = 1;
+    const int grips = 3;
+
+    splitter->setOpaqueResize(true);
+    splitter->setChildrenCollapsible(true);
+
+    splitter->setHandleWidth(7);
+    QSplitterHandle* handle = splitter->handle(index);
+    Qt::Orientation orientation = splitter->orientation();
+    QHBoxLayout* layout = new QHBoxLayout(handle);
+    layout->setSpacing(0);
+    layout->setMargin(0);
+
+    if (orientation == Qt::Horizontal)
+    {
+        for (int i = 0; i < grips; ++i)
+        {
+            QFrame* line = new QFrame(handle);
+            line->setMinimumSize(gripWidth, gripLength);
+            line->setMaximumSize(gripWidth, gripLength);
+            line->setFrameShape(QFrame::StyledPanel);
+            layout->addWidget(line);
+        }
+    }
+    else
+    {
+        layout->addStretch();
+        QVBoxLayout* vbox = new QVBoxLayout;
+        for (int i = 0; i < grips; ++i)
+        {
+            QFrame* line = new QFrame(handle);
+            line->setMinimumSize(gripLength, gripWidth);
+            line->setMaximumSize(gripLength, gripWidth);
+            line->setFrameShape(QFrame::StyledPanel);
+            vbox->addWidget(line);
+        }
+        layout->addLayout(vbox);
+        layout->addStretch();
     }
 }

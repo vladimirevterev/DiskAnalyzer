@@ -34,7 +34,7 @@ QVariant GroupsTableModel::data(const QModelIndex &index, int role) const
 
     if (role == Qt::DisplayRole)
     {
-        return (QVariant(groupsVector[index.row()][index.column()]));
+        return groupsVector[index.row()][index.column()];
     }
 
     if (role == Qt::BackgroundRole) {
